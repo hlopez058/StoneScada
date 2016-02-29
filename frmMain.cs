@@ -23,8 +23,14 @@ namespace StoneScada
             string curDir = Directory.GetCurrentDirectory();
             this.webBrowser1.Url = new Uri(String.Format("file:///{0}/pages/master.html", curDir));
 
+          
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            
+        }
 
+        
     }
 }

@@ -9,25 +9,7 @@ using System.ServiceModel.Description;
 using System.ServiceModel.Web;
 namespace StoneScada
 {
-    [ServiceContract]
-    public interface IStoneScadaService
-    {  
-        [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json,
-            BodyStyle=WebMessageBodyStyle.Wrapped,
-            UriTemplate="driver/{driver}?get={tagname}")]
-        string Get(string driver,string tagname);
-    }
-
-    public class StoneScadaService : IStoneScadaService
-    {
-        public string Get(string driver, string tagname)
-        {
-            var rand = new Random();
-            if (tagname == "test") { return Convert.ToString(rand.Next()); }
-            return "N";
-        }
-    }
+  
 
     static class Program
     {
@@ -43,12 +25,6 @@ namespace StoneScada
             // Create the ServiceHost.
             using (ServiceHost host = new ServiceHost(typeof(StoneScadaService), baseAddress))
             {
-                // Enable metadata publishing.
-                ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                smb.HttpGetEnabled = true;
-                smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                host.Description.Behaviors.Add(smb);    
-                
                 // Open the ServiceHost to start listening for messages. Since
                 // no endpoints are explicitly configured, the runtime will create
                 // one endpoint per base address for each service contract implemented
@@ -65,12 +41,6 @@ namespace StoneScada
                 // Close the ServiceHost.
                 host.Close();
             }
-
-     
-            
         }
-
-
-
     }
 }
