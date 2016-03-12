@@ -1,25 +1,50 @@
-﻿$.support.cors = true;//Adds Transport Cross Platform Support
+﻿// Initialize Env.
+$.support.cors = true;//Adds Transport Cross Platform Support
 
-//IO Server Settings
+// IO Server Settings
 var io = {
     server: "http://localhost:8080/stonescada/",
     guri: "drivers/get=",
     suri: "drivers/set=",
     datatype: "json",
+    taglisturi:"taglist.json",
     type:"GET"
 };
 
-$(document).ready(function () {
+// Get taglist array
+// Read in the taglist object so that it
+// can be referenced in code later on.
+var taglist = function () {
+    $.ajax({
+        url: io.taglisturi,
+        type: io.type,
+        dataType: io.datatype,
+        cache: false,
+        success: function (data) {
+            var json = $.parseJSON(data);
+            return json;
+        },
+        async: true,
+        error: function (jqXHR, textStatus, errorThrown) {
+            return errorThrown;
+        }
+    });
+};
 
-   
-
-})
-
-var result = "na";
-
-function postProcessing(data) {
-    var json = $.parseJSON(data);
-    result = json.value;
+// Update value of each tag in taglist object
+// Use the ioserver settings to update the tags in the taglist
+// this way the taglist can refresh all values in display
+function updateTaglist(){
+    //walk through taglist and update
+    for (var key in taglist) {
+        if (taglist.hasOwnProperty(key)) {
+            //get the value of the tag
+            var newVal = getValue(taglist[key]);
+            //update tag info
+            taglist[key] = newVal;
+            alert(taglist[key]);
+        }
+    }
 }
 
 function getValue(tagname) {
@@ -28,43 +53,19 @@ function getValue(tagname) {
         type: io.type,
         dataType: io.datatype,
         cache: false,
-        success: postProcessing,
+        success: function (data) {
+            var json = $.parseJSON(data);
+            return json.value;
+        },
         async: true,
         error: function (jqXHR, textStatus, errorThrown) {
-            result = errorThrown;
+            return errorThrown;
         }
     });
 };
 
-var myVar;
+var myClock;
+myClock = setInterval(
+    function () { updateTaglist();  }, 1000);
 
-myVar = setInterval(function () { getValue("test"); alert(result); }, 1000);
 
-function drv_Set(tagname, value) {
-    var result = "na";
-    $.ajax({
-        async: false,
-        type: io.type,
-        url: io.server + io.suri + tagname +":"+value,
-        dataType: io.datatype,
-        success: function (data) {
-            var json = $.parseJSON(data);
-            result = json.value;
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console(errorThrown);
-        }
-    });
-    return result;
-}
-
-////Create Driver Object
-//var driver =
-//{
-//    // link a client side pull to the ioservers
-//    // rest service for a driver 'get' command
-//    get:"",
-//    // link a client side push to the ioservers
-//    // rest service for a driver 'set' command
-//    set:""
-//};

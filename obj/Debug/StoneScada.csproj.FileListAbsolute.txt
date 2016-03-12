@@ -12,3 +12,17 @@ C:\Users\hlopez058\Documents\GitHub\StoneScada\obj\Debug\StoneScada.csproj.Gener
 C:\Users\hlopez058\Documents\GitHub\StoneScada\obj\Debug\StoneScada.exe
 C:\Users\hlopez058\Documents\GitHub\StoneScada\obj\Debug\StoneScada.pdb
 C:\Users\hlopez058\Documents\GitHub\StoneScada\obj\Debug\StoneScada.csprojResolveAssemblyReference.cache
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\bin\Debug\StoneScada.exe.config
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\obj\Debug\StoneScada.exe
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\obj\Debug\StoneScada.pdb
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\bin\Debug\native\jquery.min.js
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\bin\Debug\pages\master.html
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\bin\Debug\scripts\master.js
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\bin\Debug\StoneScada.exe
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\bin\Debug\StoneScada.pdb
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\bin\Debug\Newtonsoft.Json.dll
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\bin\Debug\Newtonsoft.Json.xml
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\obj\Debug\StoneScada.csprojResolveAssemblyReference.cache
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\obj\Debug\StoneScada.frmMain.resources
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\obj\Debug\StoneScada.Properties.Resources.resources
+C:\Users\hxl0tp5\Documents\GitHub\StoneScada\obj\Debug\StoneScada.csproj.GenerateResource.Cache
