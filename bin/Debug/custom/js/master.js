@@ -7,29 +7,11 @@ var io = {
     guri: "drivers/get=",
     suri: "drivers/set=",
     datatype: "json",
-    taglisturi:"taglist.json",
     type:"GET"
 };
 
-// Get taglist array
-// Read in the taglist object so that it
-// can be referenced in code later on.
-var taglist = function () {
-    $.ajax({
-        url: io.taglisturi,
-        type: io.type,
-        dataType: io.datatype,
-        cache: false,
-        success: function (data) {
-            var json = $.parseJSON(data);
-            return json;
-        },
-        async: true,
-        error: function (jqXHR, textStatus, errorThrown) {
-            return errorThrown;
-        }
-    });
-};
+
+var taglist = modbus.tags;
 
 // Update value of each tag in taglist object
 // Use the ioserver settings to update the tags in the taglist
@@ -41,13 +23,14 @@ function updateTaglist(){
             //get the value of the tag
             var newVal = getValue(taglist[key]);
             //update tag info
-            taglist[key] = newVal;
-            alert(taglist[key]);
+            //taglist[key] = newVal;
+            alert(taglist[key] + "=" + newVal);
         }
     }
 }
 
 function getValue(tagname) {
+    var jsonValue = "na";
     $.ajax({
         url: io.server + io.guri + tagname,
         type: io.type,
@@ -55,13 +38,15 @@ function getValue(tagname) {
         cache: false,
         success: function (data) {
             var json = $.parseJSON(data);
-            return json.value;
+            jsonValue = json.value;
         },
-        async: true,
+        async: false,
         error: function (jqXHR, textStatus, errorThrown) {
-            return errorThrown;
+            jsonValue = errorThrown;
         }
     });
+
+    return jsonValue;
 };
 
 var myClock;

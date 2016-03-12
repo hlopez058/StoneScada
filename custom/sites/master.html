@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Main</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../native/js/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../css/master.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div id="MasterView">
+            Hello I Am SCADA!
+            <br />
+            Tagname Set:
+            <script type="text/javascript">
+                //set the tagname
+                //document.write(driver.set("test", 12));
+            </script>
+
+            <br />
+            Tagname Get:
+            <script type="text/javascript">
+                //document.write(driver.get("test"));
+            </script> 
+        </div>
+    </div><!-- /.container -->
+
+ 
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>window.jQuery || document.write('<script src="../../native/js/jquery.min.js"><\/script>')</script>
+    <script src="../../native/js/bootstrap.min.js"></script>
+    <script src="../../native/js/jquery.min.js"></script>
+
+    <!-- StoneScada core JavaScript
+    ================================================== -->
+    <script src="../js/drivers.js"></script>
+    <script src="../js/master.js"></script>
+    
+
+</body>
+</html>

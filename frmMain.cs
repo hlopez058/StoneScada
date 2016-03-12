@@ -21,14 +21,18 @@ namespace StoneScada
         private void Form1_Load(object sender, EventArgs e)
         {
             string curDir = Directory.GetCurrentDirectory();
-            this.webBrowser1.Url = new Uri(String.Format("file:///{0}/pages/master.html", curDir));
+            this.webBrowser1.Url = new Uri(String.Format("file:///{0}/custom/sites/master.html", curDir));
 
-          
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             
+        }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
         }
 
         
