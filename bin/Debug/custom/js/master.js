@@ -1,31 +1,72 @@
-﻿// Initialize Env.
+﻿//==========================================>
+// MAIN
+//==========================================>
+// Initialize Env.
 $.support.cors = true;//Adds Transport Cross Platform Support
 
-// IO Server Settings
-var io = {
-    server: "http://localhost:8080/stonescada/",
-    guri: "drivers/get=",
-    suri: "drivers/set=",
-    datatype: "json",
-    type:"GET"
-};
-
-
 var taglist = modbus.tags;
+var datapoints = modbus.tags;
+
+processTaglist();
+
+
+//==========================================>
+
+// Load taglist into a datapoint structures
+function processTaglist() {
+
+    // clear array
+    datapoints = [];
+
+    //declare iterrator for id
+    var i = 0;
+
+    //walk through taglist 
+    for (var key in taglist) {
+
+        //check if object contaings property
+        if (taglist.hasOwnProperty(key)) {
+
+            //make the tagname the same as the tag listed value
+            var tagname = taglist[key];
+
+            //create datapoint object
+            var datapoint = {id:i, tagname: taglist[key], val: "N", qual: "NA" };
+            
+            //add to array
+            datapoints[key] = datapoint;
+
+            i++;
+        }
+    }
+}
 
 // Update value of each tag in taglist object
 // Use the ioserver settings to update the tags in the taglist
 // this way the taglist can refresh all values in display
 function updateTaglist(){
-    //walk through taglist and update
-    for (var key in taglist) {
-        if (taglist.hasOwnProperty(key)) {
-            //get the value of the tag
-            var newVal = getValue(taglist[key]);
-            //update tag info
-            //taglist[key] = newVal;
-            alert(taglist[key] + "=" + newVal);
+
+    var dplength = 0;
+    //walk through array of datapoints
+    for (var dpN in datapoints) {
+  
+        var dp = datapoints[dpN];
+
+        //update datapoint value
+        var dpVal = getValue(dp.tagname);
+
+        //create proxy datapoint object, and update the val property
+        var datapoint = { id: dp.id, tagname: dp.tagname, val: dpVal, qual: dp.qual };
+
+        //update the array at given id
+        datapoints[dpN] = datapoint;
+
+        //update the div that the datapoint belongs too.
+        if (document.getElementById("datapoint." + dpN) != null) {
+            document.getElementById("datapoint." + dpN).innerHTML = dpN +":"+datapoint.val;
         }
+
+        //alert(datapoint.tagname + "=" + datapoint.val);
     }
 }
 

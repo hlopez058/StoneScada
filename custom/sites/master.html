@@ -14,20 +14,12 @@
 
 <body>
     <div class="container">
-        <div id="MasterView">
-            Hello I Am SCADA!
-            <br />
-            Tagname Set:
-            <script type="text/javascript">
-                //set the tagname
-                //document.write(driver.set("test", 12));
-            </script>
+        <span id="MasterView">
 
             <br />
-            Tagname Get:
-            <script type="text/javascript">
-                //document.write(driver.get("test"));
-            </script> 
+            <span id="datapoint.MW"></span>
+
+
         </div>
     </div><!-- /.container -->
 
@@ -41,6 +33,7 @@
 
     <!-- StoneScada core JavaScript
     ================================================== -->
+    <script src="../js/iointerface.js"></script>
     <script src="../js/drivers.js"></script>
     <script src="../js/master.js"></script>
     

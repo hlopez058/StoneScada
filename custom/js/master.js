@@ -1,56 +1,81 @@
-﻿// Initialize Env.
-$.support.cors = true;//Adds Transport Cross Platform Support
+﻿//==========================================>
+// MAIN
+//==========================================>
 
-// IO Server Settings
-var io = {
-    server: "http://localhost:8080/stonescada/",
-    guri: "drivers/get=",
-    suri: "drivers/set=",
-    datatype: "json",
-    type:"GET"
-};
+//Adds Transport Cross Platform Support
+$.support.cors = true;
 
+// use taglist to generate datapoints
+// taglist is defined in drivers.js file
+var datapoints = processTaglist(MODBUS);
+//------------------------------------------/>
 
-var taglist = modbus.tags;
+//==========================================>
+// Functions
+//==========================================>
 
-// Update value of each tag in taglist object
-// Use the ioserver settings to update the tags in the taglist
-// this way the taglist can refresh all values in display
-function updateTaglist(){
-    //walk through taglist and update
+// Load taglist into a datapoint structures
+function processTaglist(taglist) {
+
+    // clear array
+    var datapoints = [];
+
+    //declare iterrator for id
+    var i = 0;
+
+    //walk through taglist 
     for (var key in taglist) {
+
+        //check if object contaings property
         if (taglist.hasOwnProperty(key)) {
-            //get the value of the tag
-            var newVal = getValue(taglist[key]);
-            //update tag info
-            //taglist[key] = newVal;
-            alert(taglist[key] + "=" + newVal);
+
+            //make the tagname the same as the tag listed value
+            var tagname = taglist[key];
+
+            //create datapoint object
+            var datapoint = {id:i, tagname: taglist[key], val: "N", qual: "NA" };
+            
+            //add to array
+            datapoints[key] = datapoint;
+
+            i++;
         }
+    }
+
+    return datapoints;
+}
+
+// Loop through datapoints, update and refresh screen
+function updateDatapoints(){
+
+    var dplength = 0;
+    //walk through array of datapoints
+    for (var dpN in datapoints) {
+  
+        var dp = datapoints[dpN];
+
+        //update datapoint value
+        var dpVal = getValue(dp.tagname);
+
+        //create proxy datapoint object, and update the val property
+        var datapoint = { id: dp.id, tagname: dp.tagname, val: dpVal, qual: dp.qual };
+
+        //update the array at given id
+        datapoints[dpN] = datapoint;
+
+        //update the div that the datapoint belongs too if it exists
+        if (document.getElementById("datapoint." + dpN) != null) {
+            document.getElementById("datapoint." + dpN).innerHTML = dpN +":"+datapoint.val;
+        }
+
+        //alert(datapoint.tagname + "=" + datapoint.val);
     }
 }
 
-function getValue(tagname) {
-    var jsonValue = "na";
-    $.ajax({
-        url: io.server + io.guri + tagname,
-        type: io.type,
-        dataType: io.datatype,
-        cache: false,
-        success: function (data) {
-            var json = $.parseJSON(data);
-            jsonValue = json.value;
-        },
-        async: false,
-        error: function (jqXHR, textStatus, errorThrown) {
-            jsonValue = errorThrown;
-        }
-    });
-
-    return jsonValue;
-};
-
+// Timed auto-refresh of screen
 var myClock;
 myClock = setInterval(
-    function () { updateTaglist();  }, 1000);
+    function () { updateDatapoints();  }, 1000);
+//------------------------------------------/>
 
 
