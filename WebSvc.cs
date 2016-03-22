@@ -29,6 +29,12 @@ namespace StoneScada
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single,ConcurrencyMode = ConcurrencyMode.Single)]
     public class StoneScadaService : IStoneScadaService
     {
+        public iomodbus ioModbus;
+        public StoneScadaService()
+        {
+            ioModbus = new iomodbus();
+        }
+
         public class DriverResult
         {
             public string tagname;
@@ -38,9 +44,10 @@ namespace StoneScada
         public string Get(string driver, string tagname)
         {
             var result = "na";
-
-            if (tagname == "test") { result = Convert.ToString(rand.Next()); }
-
+    
+            //use modbus driver to read the value
+            result = string.Format("%f",ioModbus.GetValue(tagname,2));
+            
             var resobj = new DriverResult() { tagname = tagname, value = result };
             
             return Newtonsoft.Json.JsonConvert.SerializeObject(resobj);

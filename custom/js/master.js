@@ -47,27 +47,20 @@ function processTaglist(taglist) {
 
 // Loop through datapoints, update and refresh screen
 function updateDatapoints(){
-
     var dplength = 0;
     //walk through array of datapoints
     for (var dpN in datapoints) {
-  
         var dp = datapoints[dpN];
-
         //update datapoint value
         var dpVal = getValue(dp.tagname);
-
         //create proxy datapoint object, and update the val property
         var datapoint = { id: dp.id, tagname: dp.tagname, val: dpVal, qual: dp.qual };
-
         //update the array at given id
         datapoints[dpN] = datapoint;
-
         //update the div that the datapoint belongs too if it exists
         if (document.getElementById("datapoint." + dpN) != null) {
             document.getElementById("datapoint." + dpN).innerHTML = dpN +":"+datapoint.val;
         }
-
         //alert(datapoint.tagname + "=" + datapoint.val);
     }
 }

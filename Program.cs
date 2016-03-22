@@ -22,6 +22,8 @@ namespace StoneScada
 
             // Load DLL's from folder
 
+
+
             // Create SelfHosted Webservice
             Uri baseAddress = new Uri("http://localhost:8080/stonescada");
 

@@ -1,7 +1,7 @@
 ﻿// Create a mapping for driver
 var MODBUS =
 {
-    MW: "test",
+    MW: "",
     MVAR: "test2",
     MW1: "test",
     MVAR1: "test2",
